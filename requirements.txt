@@ -1,0 +1,7 @@
+mkdocs-material = "*"
+
+# Direct dependencies
+mkdocs>=1
+Pygments>=2.2
+pymdown-extensions>=4.11
+mkdocs-minify-plugin
