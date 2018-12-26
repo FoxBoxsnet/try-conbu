@@ -1,4 +1,4 @@
-mkdocs-material = "*"
+mkdocs-material
 
 # Direct dependencies
 mkdocs>=1
