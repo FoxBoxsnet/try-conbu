@@ -1,6 +1,6 @@
 backend:
   name: github
-  repo: FoxBoxsnet/tey-conbu # Path to your Github repository
+  repo: FoxBoxsnet/try-conbu # Path to your Github repository
   branch: master # Branch to update (master by default)
 
 publish_mode: editorial_workflow
