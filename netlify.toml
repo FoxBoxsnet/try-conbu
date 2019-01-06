@@ -2,6 +2,13 @@
   publish = "site"
   command = "mkdocs build"
 
+[[redirects]]
+# Redirect default Netlify subdomain to primary domain
+from = "http://try-conbu.netlify.com/*"
+to = "http://try-conbu.foxboxsnet.com/:splat"
+status = 301
+force = true
+
 [[headers]]
   for = "/*"
     [headers.values]
