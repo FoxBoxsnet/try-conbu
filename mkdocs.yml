@@ -99,6 +99,7 @@ nav:
       - ネットワーク: networks/overview.md
       - VPN:
           - IX:
+              - 設定: networks/vpn/ix/ix-settings.md
               - 雑記: networks/vpn/ix/ix-miscellaneous_notes.md
 
 # Plugins
