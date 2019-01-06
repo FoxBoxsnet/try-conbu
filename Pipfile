@@ -13,4 +13,4 @@ pymdown-extensions = ">=4.11"
 mkdocs-minify-plugin = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.7"
