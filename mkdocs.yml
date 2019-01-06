@@ -95,6 +95,11 @@ nav:
       - License: license.md
       - Special Thanks: specialthanks/index.md
       - Contributing: contributing/index.md
+  - Networks:
+      - ネットワーク: networks/overview.md
+      - VPN:
+          - IX:
+              - 雑記: networks/vpn/ix/ix-miscellaneous_notes.md
 
 # Plugins
 plugins:

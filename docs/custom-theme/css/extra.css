@@ -1,0 +1,11 @@
+.md-typeset__table {
+    width: 100%;
+}
+
+nav.md-nav.md-nav--primary {
+    background-color: #f7f7f7;
+}
+
+nav.md-nav.md-nav--secondary {
+    border-left: 4px solid #039be5;
+}
