@@ -12,6 +12,12 @@ repo_url: https://github.com/FoxBoxsnet/try-conbu
 # Copyright
 copyright: 'Copyright &copy; 2018 Naoki Aoyama'
 
+extra_css:
+  - 'custom-theme/css/extra.css'
+
+extra_javascript:
+  - 'custom-theme/js/extra.js'
+
 # Configuration
 theme:
   name: 'material'
@@ -50,9 +56,13 @@ extra:
 
 # Extensions
 markdown_extensions:
+  # 警告文
   - markdown.extensions.admonition
+  # コードハイライト
   - markdown.extensions.codehilite:
       guess_lang: false
+      linenums: true
+    # 定義リスト
   - markdown.extensions.def_list
   - markdown.extensions.footnotes
   - markdown.extensions.meta
@@ -64,9 +74,11 @@ markdown_extensions:
   - pymdownx.caret
   - pymdownx.critic
   - pymdownx.details
+    # 絵文字
   - pymdownx.emoji:
       emoji_generator: !!python/name:pymdownx.emoji.to_svg
   - pymdownx.inlinehilite
+    # Keys
   - pymdownx.keys
   - pymdownx.magiclink
   - pymdownx.mark
@@ -78,8 +90,11 @@ markdown_extensions:
 
 # Page tree
 nav:
-  - Home: index.md
-  - License: license.md
+  - Home:
+      - Home: index.md
+      - License: license.md
+      - Special Thanks: specialthanks/index.md
+      - Contributing: contributing/index.md
 
 # Plugins
 plugins:
