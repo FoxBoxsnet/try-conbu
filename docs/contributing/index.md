@@ -4,9 +4,17 @@ Github でこのページのソースは管理しています。<br>
 新しく記事を作成、修正を依頼したい場合は issue を上げてください。<br>
 Projects にもメモを残しているのでぜひ御覧ください。
 
+
 ## Themes
 
-* [Admonition \- Material for MkDocs](https://squidfunk.github.io/mkdocs-material/extensions/admonition/#usage)
+* [Material for MkDocs](https://squidfunk.github.io/mkdocs-material)
+
+
+### カスタム
+
+* GCP ぽい TOC と ナビバーのCSSにした
+* ナビバーを常に展開する設定にした
+
 
 ## Reference
 
