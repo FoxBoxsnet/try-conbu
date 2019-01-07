@@ -4,6 +4,13 @@ Github でこのページのソースは管理しています。<br>
 新しく記事を作成、修正を依頼したい場合は issue を上げてください。<br>
 Projects にもメモを残しているのでぜひ御覧ください。
 
+## サイトの構成
+
+Github でコードを管理して、Netlify で配信してます。
+独自ドメインは Google Cloud DNS で管理し DNSSEC にも対応しました。
+
+Netlify のいい所は、手軽に Let's Encrypt で HTTPS な環境を提供してくれて、自動更新までしてくれる部分ですね。
+
 
 ## Themes
 
