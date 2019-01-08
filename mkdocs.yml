@@ -14,6 +14,7 @@ copyright: 'Copyright &copy; 2018 Naoki Aoyama'
 
 extra_css:
   - 'custom-theme/css/extra.css'
+  - 'https://use.fontawesome.com/releases/v5.6.3/css/all.css'
 
 extra_javascript:
   - 'custom-theme/js/extra.js'
@@ -87,6 +88,8 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
   - pymdownx.tilde
+    # Font Awesome
+  - fontawesome_markdown
 
 # Page tree
 nav:

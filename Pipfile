@@ -11,6 +11,7 @@ mkdocs-material = "*"
 pygments = ">=2.2"
 pymdown-extensions = ">=4.11"
 mkdocs-minify-plugin = "*"
+fontawesome_markdown = "*"
 
 [requires]
 python_version = "3.7"

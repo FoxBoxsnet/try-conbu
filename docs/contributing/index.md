@@ -22,6 +22,16 @@ Netlify のいい所は、手軽に Let's Encrypt で HTTPS な環境を提供�
 * GCP ぽい TOC と ナビバーのCSSにした
 * ナビバーを常に展開する設定にした
 
+#### Font Awesome の追加
+
+* [Icons | Font Awesome](https://fontawesome.com/icons?d=gallery)
+
+| 設定時  | Font Awesome ID   | description |
+| :------ | :---------------- | :---------- |
+| check   | :fa-square:       | 有効化      |
+| uncheck | :fa-check-square: | 無効化      |
+
+
 
 ## Reference
 
