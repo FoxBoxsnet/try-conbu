@@ -28,8 +28,8 @@ Netlify のいい所は、手軽に Let's Encrypt で HTTPS な環境を提供�
 
 | 設定時  | Font Awesome ID   | description |
 | :------ | :---------------- | :---------- |
-| check   | :fa-square:       | 有効化      |
-| uncheck | :fa-check-square: | 無効化      |
+| check   | :fa-check-square:       | 有効化      |
+| uncheck | :fa-square: | 無効化      |
 
 
 
