@@ -119,7 +119,7 @@ Hostname, Domain, Primary DNS Server, Secondary DNS Server, Override DNS を設�
 | Domain               | 指定の物を確認    |
 | Primary DNS Server   | 1.1.1.1           |
 | Secondary DNS Server | 1.0.0.1           |
-| Override DNS         | :fa-check-square: |
+| Override DNS         | :fa-square: |
 
 ![](img/pfsense-settings/009.png)
 
@@ -157,8 +157,8 @@ NTPの設定と TImezone を設定します
 
 |                                |                   |
 | :----------------------------- | :---------------- |
-| Block RFC1918 Private Networks | check :fa-square: |
-| Block bogon networks           | check :fa-square: |
+| Block RFC1918 Private Networks | check :fa-check-square: |
+| Block bogon networks           | check :fa-check-square: |
 
 ![](img/pfsense-settings/011_03.png)
 
@@ -219,7 +219,7 @@ Status が `Up to date.` でなく下記のように `confirm` と出ている�
 
 |                         |                   |
 | :---------------------- | :---------------- |
-| Enable                  | check :fa-square: |
+| Enable                  | check :fa-check-square: |
 | Description             | `MGMT` に変更     |
 | IPv4 Configuration Type | `Static IPv4`     |
 
