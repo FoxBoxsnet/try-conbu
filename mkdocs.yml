@@ -108,6 +108,10 @@ nav:
           - IX:
               - 設定: networks/vpn/ix/ix-settings.md
               - 雑記: networks/vpn/ix/ix-miscellaneous_notes.md
+          - pfSesne:
+              - 概要: networks/vpn/pfsense/pfsense-overview.md
+              - 設定: networks/vpn/pfsense/pfsense-settings.md
+              - 雑記: networks/vpn/pfsense/pfsense-miscellaneous_notes.md
 
 # Plugins
 plugins:
