@@ -502,3 +502,37 @@ Management 用 Rule になります。
 | Dashboard Columns | `3`                           |
 
 ![](img/system/general-setup/001.png)
+
+
+## User Manager
+### Users
+
+#### 管理ユーザーの追加
+
+`Add` クリック
+
+![](img/system/user-manager/users/001.png)
+
+適宜変更する。<be>
+忘れずに `Save` しましょう。
+![](img/system/user-manager/users/002.png)
+
+もう一度、作成したユーザーの設定画面を開き下記の `Add` をクリック
+![](img/system/user-manager/users/003.png)
+
+filter で shell を指定して `User - System: Shell account access` を追加。
+![](img/system/user-manager/users/004.png)
+
+`User - System: Shell account access` が追加されていることを確認<br>
+![](img/system/user-manager/users/005.png)
+
+
+#### admin アカウントの無効化
+
+デフォルトアカウントの `admin` をセキュリティーの都合で無効化します。
+
+|          |                                          |
+| :------- | :--------------------------------------- |
+| Disabled | :fa-check-square: This user cannot login |
+
+![](img/system/user-manager/users/006.png)
