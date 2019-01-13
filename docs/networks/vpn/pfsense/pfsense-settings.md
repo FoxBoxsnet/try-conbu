@@ -322,3 +322,49 @@ MANAGEMENT で利用するポートを許可します。
 画面遷移後に `Apply Changes` が出るので忘れずに押しましょう。
 
 ![](img/pfsense-settings/firewall/aliases/ports/003.png)
+
+### NAT
+
+NAT の設定を実施します。<br>
+会場のネットワークの Gateway がこちらの pfSense になるため、会場側のネットワークの NAT を設定する必要があります。
+
+`Firewall` > `NAT` > `Outbound` へ移動し<br>
+`Manual Outbound NAT rule generation.(AON - Advanced Outbound NAT)` を選択します。
+忘れずに `Save` しましょう。
+
+![](img/pfsense-settings/firewall/nat/001.png)
+
+画面遷移後に `Apply Changes` が出るので忘れずに押しましょう。
+
+![](img/pfsense-settings/firewall/nat/002.png)
+
+
+会場側 NAT を追加します。<br>
+とりあえず、 MANAGEMENT 側を追加します。
+
+|             |                 |                                |
+| :---------- | :-------------- | :----------------------------- |
+| Source      | 10.2.11.0/24    | 会場側の管理ネットワークを指定 |
+| Description | Home Management |
+
+![](img/pfsense-settings/firewall/nat/003.png)
+
+![](img/pfsense-settings/firewall/nat/004.png)
+
+
+画面遷移後に会場側 MANAGEMENT セグメントであるか確認してから `Apply Changes` を忘れずに押しましょう。
+
+![](img/pfsense-settings/firewall/nat/005.png)
+
+
+ISAKMP の NAT も追加します。
+`Add` してこのように追加します。
+画面遷移後に会場側 MANAGEMENT セグメントであるか確認してから `Apply Changes` を忘れずに押しましょう。
+
+
+![](img/pfsense-settings/firewall/nat/006.png)
+
+
+NATの設定は最終的にこうなっていれば OK です
+
+![](img/pfsense-settings/firewall/nat/007.png)
