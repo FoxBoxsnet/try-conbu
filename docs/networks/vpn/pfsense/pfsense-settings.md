@@ -124,12 +124,12 @@ pfSesne にログインします
 
 Hostname, Domain, Primary DNS Server, Secondary DNS Server, Override DNS を設定します。
 
-|                      |                   |
-| :------------------- | :---------------- |
-| Hostname             | 指定の物を確認    |
-| Domain               | 指定の物を確認    |
-| Primary DNS Server   | 1.1.1.1           |
-| Secondary DNS Server | 1.0.0.1           |
+|                      |                     |
+| :------------------- | :------------------ |
+| Hostname             | 指定の物を確認      |
+| Domain               | 指定の物を確認      |
+| Primary DNS Server   | 1.1.1.1             |
+| Secondary DNS Server | 1.0.0.1             |
 | Override DNS         | :fa-square: uncheck |
 
 ![](img/pfsense-settings/009.png)
@@ -166,8 +166,8 @@ NTPの設定と TImezone を設定します
 
 ![](img/pfsense-settings/011_02.png)
 
-|                                |                   |
-| :----------------------------- | :---------------- |
+|                                |                         |
+| :----------------------------- | :---------------------- |
 | Block RFC1918 Private Networks | :fa-check-square: check |
 | Block bogon networks           | :fa-check-square: check |
 
@@ -228,11 +228,11 @@ Status が `Up to date.` でなく下記のように `confirm` と出ている�
 
 インターフェイスが有効になっていることを確認
 
-|                         |                   |
-| :---------------------- | :---------------- |
+|                         |                         |
+| :---------------------- | :---------------------- |
 | Enable                  | :fa-check-square: check |
-| Description             | `MGMT` に変更     |
-| IPv4 Configuration Type | `Static IPv4`     |
+| Description             | `MGMT` に変更           |
+| IPv4 Configuration Type | `Static IPv4`           |
 
 ![](img/pfsense-settings/017_01.png)
 
@@ -243,6 +243,6 @@ Status が `Up to date.` でなく下記のように `confirm` と出ている�
 
 ![](img/pfsense-settings/017_02.png)
 
-### LAN
+### USER
 
 一つ上の MGMT のインターフェイスを参考に ユーザー側のインターフェイス設定を実施してください。
