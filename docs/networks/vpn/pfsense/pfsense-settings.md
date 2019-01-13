@@ -489,3 +489,16 @@ Management 用 Rule になります。
     `Diagnostics` / `Reboot` から実行できます.
 
     ![](img/system/advanced/miscellaneous/002.png)
+
+
+## General Setup
+
+**webConfigurator**
+
+|                   |                               |
+| :---------------- | :---------------------------- |
+| Theme             | `pfSense-dark`                |
+| Hostname in Menu  | `Fully Qualified Domain Name` |
+| Dashboard Columns | `3`                           |
+
+![](img/system/general-setup/001.png)
