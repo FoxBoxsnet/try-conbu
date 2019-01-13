@@ -368,3 +368,49 @@ ISAKMP の NAT も追加します。
 NATの設定は最終的にこうなっていれば OK です
 
 ![](img/pfsense-settings/firewall/nat/007.png)
+
+### Rules
+
+Firewall ルールを作成します。
+
+
+#### WAN
+
+IPsec を通すため設定を追加します。
+
+| Protocol             | Source | Port | Destination | Port                   | Description                     |
+| :------------------- | :----- | :--- | :---------- | :--------------------- | :------------------------------ |
+| IPv4<br>ICMP echoreq | *      | *    | WAN addess  | *                      | Allow ICMP Echo request         |
+| IPv4<br>ESP          | *      | *    | WAN addess  | 500<br> (ISAKMP)       | Allow ESP IP Protocol 50 Port   |
+| IPv4<br>UDP          | *      | *    | WAN address | 4500<br> (IPsec NAT-T) | Allow ISAKMP 50/UDP             |
+| IPv4<br>UDP          | *      | *    | WAN address | 4500<br> (IPsec NAT-T) | Allow IPsec NAT-T Port 4500/UDP |
+
+![](img/pfsense-settings/firewall/rules/wan/001.png)
+
+
+#### MGMT
+
+Management 用 Rule になります。
+
+`Anti-Lockout Rule` は後で設定で無効化するので、管理側ネットワークから pfSense へアクセスできるように Rule を追加しています。
+
+| Protocol    | Source     | Port | Destination | Port       | Description                         |
+| :---------- | :--------- | :--- | :---------- | :--------- | :---------------------------------- |
+| IPv4<br>TCP | !mgmt_nets | *    | MGMT addess | mgmt_poets | Management Access                   |
+| IPv4 *      | MGMT net   | *    | *           | *          | Default allow MGMT to any rule      |
+| IPv6 *      | MGMT net   | *    | *           | *          | Default allow MGMT IPv6 to any rule |
+
+![](img/pfsense-settings/firewall/rules/mgmt/001.png)
+
+
+#### USER
+
+ユーザー側 Rule です。
+
+| Protocol | Source   | Port | Destination | Port | Description                         |
+| :------- | :------- | :--- | :---------- | :--- | :---------------------------------- |
+| IPv4 *   | USER net | *    | *           | *    | Default allow USER to any rule      |
+| IPv6 *   | USER net | *    | *           | *    | Default allow USER IPv6 to any rule |
+
+
+![](img/pfsense-settings/firewall/rules/user/001.png)
