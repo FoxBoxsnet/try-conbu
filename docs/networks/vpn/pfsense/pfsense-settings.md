@@ -34,7 +34,7 @@ pfSense は、[Download pfSense Community Edition](https://www.pfsense.org/downl
 
 起動したら下記のような画面になります。
 
-![](img/pfsense-settings/001.png)
+![](img/pfsense-settings/console-setup/vlan-setting/001.png)
 
 ```
 Should VLANs be set up now [y|n]? n
@@ -47,7 +47,7 @@ Should VLANs be set up now [y|n]? n
 
 #### interface 設定
 
-![](img/pfsense-settings/002.png)
+![](img/pfsense-settings/console-setup/interface-setting/002.png)
 
 次に順番にインターフェイスの割当をしていきます。
 
@@ -65,12 +65,12 @@ Should VLANs be set up now [y|n]? n
 
 #### LAN(MGMT) interface の IP 設定
 
-![](img/pfsense-settings/003.png)
+![](img/pfsense-settings/console-setup/interface-setting/003.png)
 
 **`2) Set interface(s) IP address`** を選択したいので `2` を入力します。
 
-![](img/pfsense-settings/004.png)
-![](img/pfsense-settings/005.png)
+![](img/pfsense-settings/console-setup/interface-setting/004.png)
+![](img/pfsense-settings/console-setup/interface-setting/005.png)
 
 !!! warning
     ②, ③ は毎回変わるはずなので要確認
@@ -89,7 +89,7 @@ Should VLANs be set up now [y|n]? n
 
 
 
-![](img/pfsense-settings/006.png)
+![](img/pfsense-settings/console-setup/interface-setting/006.png)
 
 この画面になれば、 赤枠の部分に設定したアドレスが表示されていることを確認
 
