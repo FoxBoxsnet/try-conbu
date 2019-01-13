@@ -246,3 +246,79 @@ Status が `Up to date.` でなく下記のように `confirm` と出ている�
 ### USER
 
 一つ上の MGMT のインターフェイスを参考に ユーザー側のインターフェイス設定を実施してください。
+
+
+## Firewall
+
+Firewall の設定を実施します。
+
+### Aliases
+
+ここでは、 MANAGEMENT セグメントの IP, PORT リストを作成します。
+
+その後、 rule で利用します
+
+#### IP
+
+MANAGEMENT の IP を設定する
+
+![](img/pfsense-settings/firewall/aliases/ip/001.png)
+
+
+**Properties**
+
+|             |                       |
+| :---------- | :-------------------- |
+| Name        | mgmt_nets             |
+| Description | Management Network(s) |
+| Type        | Network(s)            |
+
+
+**Host(s)**
+
+|            |              |                          |
+| :--------- | :----------- | :----------------------- |
+| IP or FQDN | 10.1.11.0/24 | Cloud Management Network |
+| IP or FQDN | 10.2.11.0/24 | Home Management Network  |
+
+`Add Network` で適宜量を調整し MANAGEMENT ネットワークをすべて記載してください。<br>
+最後に `Save` を押す
+
+![](img/pfsense-settings/firewall/aliases/ip/002.png)
+
+画面遷移後に `Apply Changes` が出るので忘れずに押しましょう。
+
+![](img/pfsense-settings/firewall/aliases/ip/003.png)
+
+
+#### Ports
+
+MANAGEMENT で利用するポートを許可します。
+
+![](img/pfsense-settings/firewall/aliases/ports/001.png)
+
+**Properties**
+
+|             |                    |
+| :---------- | :----------------- |
+| Name        | mgmt_ports         |
+| Description | Management Port(s) |
+| Type        | Port(s)            |
+
+
+**Port(s)**
+
+|      |      |         |
+| :--- | :--- | :------ |
+| Port | 22   | OpenSSH |
+| Port | 80   | HTTP    |
+| Port | 443  | HTTPS   |
+
+`Add Port` で適宜量を調整し MANAGEMENT ネットワークをすべて記載してください。<br>
+最後に `Save` を押す
+
+![](img/pfsense-settings/firewall/aliases/ports/002.png)
+
+画面遷移後に `Apply Changes` が出るので忘れずに押しましょう。
+
+![](img/pfsense-settings/firewall/aliases/ports/003.png)
