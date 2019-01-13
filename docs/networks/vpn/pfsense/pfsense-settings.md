@@ -634,3 +634,122 @@ IPsec Phase1 の重複排除機能を回避するために、ドメイン名を�
 | Remote Syslog Contents | :fa-check-square: Everything                                |
 
 ![](img/status/system-logs/002.png)
+
+
+## VPN
+### IPsec
+#### Tunnels
+
+IPsec Aggressive モードを利用してVPNで会場側トラフィックをすべてクラウドに転送して、インターネットに出します。
+
+
+##### Phase 1
+
+**General Information**
+
+|                |                              |
+| :------------- | :--------------------------- |
+| Remote Gateway | onsite01.conbu.net           |
+| Description    | Cloud for onsite01.conbu.net |
+
+![](img/vpn/ipsec/tunnels/phase1/001.png)
+
+
+**Phase 1 Proposal (Authentication)**
+
+|                  |                                          |
+| :--------------- | :--------------------------------------- |
+| Negotiation mode | `Aggressive`                             |
+| My identifier    | `Distinguished name`, cloud01.conbu.net  |
+| Peer identifier  | `Distinguished name`, onsite01.conbu.net |
+| Pre-Shared Key   | pki-mekabu                               |
+
+![](img/vpn/ipsec/tunnels/phase1/002.png)
+
+
+**Phase 1 Proposal (Encryption Algorithm)**
+
+|                      |      |          |        |              |
+| :------------------- | :--- | :------- | :----- | :----------- |
+| Encryption Algorithm | AES  | 256 Bits | SHA512 | 14(2048 bit) |
+
+![](img/vpn/ipsec/tunnels/phase1/003.png)
+
+
+**Advanced Options**
+
+|                |                                                                                                                           |
+| :------------- | :------------------------------------------------------------------------------------------------------------------------ |
+| Responder Only | :fa-check-square: Enable this option to never initiate this connection from this side, only respond to incoming requests. |
+| Enable DPD     | :fa-check-square: Enable DPD                                                                                              |
+
+![](img/vpn/ipsec/tunnels/phase1/004.png)
+
+
+##### Phase 2
+
+**General Information**
+
+|                | Type    | Address      |
+| :------------- | :------ | :----------- |
+| Local Network  | Network | 0.0.0.0/0    |
+| Remote Network | Network | 10.2.11.0/24 |
+
+|             |                        |
+| :---------- | :--------------------- |
+| Description | Home MGMT for Cloud GW |
+
+![](img/vpn/ipsec/tunnels/phase2/001.png)
+
+**Phase 2 Proposal (SA/Key Exchange)**
+
+|                       |                                                                                                                       |          |
+| :-------------------- | :-------------------------------------------------------------------------------------------------------------------- | :------- |
+| Protocol              | ESP                                                                                                                   |
+| Encryption Algorithms | :fa-check-square: AES                                                                                                 | 256 Bits |
+|                       | :fa-square: AES128-GCM                                                                                                | Auto     |
+|                       | :fa-square: AES192-GCM                                                                                                | Auto     |
+|                       | :fa-square: AES256-GCM                                                                                                | Auto     |
+|                       | :fa-square: Blowfish                                                                                                  | Auto     |
+|                       | :fa-square: 3DES                                                                                                      |
+|                       | :fa-square: CAST128                                                                                                   |
+| Hash Algorithms       | :fa-square: MD5 :fa-square: SHA1 :fa-square: SHA256  :fa-square: SHA384 :fa-check-square: SHA512 :fa-square: AES-XCBC |
+| PFS key group         | 14(2048 bit)                                                                                                          |
+| Lifetime              | 3600                                                                                                                  |
+
+![](img/vpn/ipsec/tunnels/phase2/002.png)
+
+画面遷移後に `Apply Changes` が出るので忘れずに押しましょう。
+![](img/vpn/ipsec/tunnels/phase2/003.png)
+
+最終的に設定はこうなれば完了
+![](img/vpn/ipsec/tunnels/001.png)
+
+#### 接続確認
+
+接続を確認しましょう。
+
+`Status` / `IPsec` へ移動します
+
+![](img/vpn/ipsec/tunnels/002.png)
+
+ESTABLISHED し、`Show child SA entry` で Phase 2 で設定した Remote Network 表示されていれば接続できてます。
+![](img/vpn/ipsec/tunnels/003.png)
+
+!!! info
+    まだ IX から 疎通確認はできません。
+    pfSense に新しい IPsec 用 Firewall Rule が追加され、設定されていないためです。
+
+    [Firewall Rule の IPsec 追加](#firewall-rule-ipsec) で追加の設定をします
+
+
+#### Firewall Rule の IPsec 追加
+
+pfSense で IPsec 設定がされたため、 Firewall Rulle に IPsec が追加されますがデフォルトでは 設定なし(drop) になるので通信を通すように設定します。
+
+| Protocol | Source | Port | Destination | Port | Description                          |
+| :------- | :----- | :--- | :---------- | :--- | :----------------------------------- |
+| IPv4 *   | *      | *    | *           | *    | Default allow IPsec to any rule      |
+| IPv6 *   | *      | *    | *           | *    | Default allow IPsec IPv6 to any rule |
+
+![](img/vpn/ipsec/tunnels/004.png)
