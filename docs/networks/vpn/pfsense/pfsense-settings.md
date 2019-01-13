@@ -560,3 +560,51 @@ IPsec Phase1 の重複排除機能を回避するために、ドメイン名を�
 
 画面遷移後に `Apply Changes` を忘れずに押しましょう。
 ![](img/services/dns-resolver/general-settings/004.png)
+
+
+### SNMP
+
+**SNMP Daemon**
+
+|        |                                                           |
+| :----- | :-------------------------------------------------------- |
+| Enable | :fa-check-square: Enable the SNMP Daemon and its controls |
+
+![](img/services/snmp/001.png)
+
+
+**SNMP Daemon Settings**
+
+|                       |             |
+| :-------------------- | :---------- |
+| Polling Port          | 161         |
+| System Location       | CONBU Cloud |
+| System Contact        | CONBU       |
+| Read Community String | mekabu      |
+
+![](img/services/snmp/002.png)
+
+
+**SNMP Modules**
+
+|              |                                  |
+| :----------- | :------------------------------- |
+| SNMP modules | :fa-check-square: MibII          |
+|              | :fa-check-square: Netgraph       |
+|              | :fa-check-square: PF             |
+|              | :fa-check-square: Host Resources |
+|              | :fa-check-square: UCD            |
+|              | :fa-check-square: Regex          |
+
+![](img/services/snmp/003.png)
+
+
+**Interface Binding**
+
+|                 |      |
+| :-------------- | :--- |
+| Bind Interfaces | MGMT |
+
+`MGMT` インターフェイスのみ指定
+
+![](img/services/snmp/004.png)
