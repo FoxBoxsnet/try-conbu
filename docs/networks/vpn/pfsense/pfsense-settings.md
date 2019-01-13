@@ -414,3 +414,78 @@ Management 用 Rule になります。
 
 
 ![](img/pfsense-settings/firewall/rules/user/001.png)
+
+## System
+
+### Advanced
+#### Admin Access
+
+**webConfigurator**
+
+|              |                                                             |
+| :----------- | :---------------------------------------------------------- |
+| Protocol     | :fa-check-square: HTTPS                                     |
+| Anti-lockout | :fa-check-square: Disable webConfigurator anti-lockout rule |
+
+**Secure Shell**
+
+|                     |                                       |
+| :------------------ | :------------------------------------ |
+| Secure Shell Server | :fa-check-square: Enable Secure Shell |
+| SSHd Key Only       | `Password or Public Key`              |
+
+![](img/system/advanced/admin-access/001.png)
+
+!!! info
+    今後は https 通信になります。
+    自己証明書を利用した HTTPS 通信なので ブラウザーによっては セキュリティーエラーが出ますが無視します。
+
+    自宅などで長期間利用する場合は、 acme などで Let's Encrypt を利用すると良いでしょう。
+
+
+#### Firewall & NAT
+
+ファイヤーウォール設定を変更します。
+
+**Firewall Advanced**
+
+|                               |                |
+| :---------------------------- | :------------- |
+| Firewall Optimization Options | `Conservative` |
+
+![](img/system/advanced/firewall-nat/001.png)
+
+
+#### Networking
+
+**Network Interfaces**
+
+|                                      |                                                             |
+| :----------------------------------- | :---------------------------------------------------------- |
+| Hardware Checksum Offloading         | :fa-check-square: Disable hardware checksum offload         |
+| Hardware TCP Segmentation Offloading | :fa-check-square: Disable hardware TCP segmentation offload |
+| Hardware Large Receive Offloading    | :fa-check-square: Disable hardware large receive offload    |
+
+![](img/system/advanced/networking/001.png)
+
+!!! warning
+    この設定後は再起動が必要ですが、 Advance 設定完了後に実施しましょう。
+
+
+#### Miscellaneous
+
+**Cryptographic & Thermal Hardware**
+
+|                        |                                                   |
+| :--------------------- | :------------------------------------------------ |
+| Cryptographic Hardware | `AES-NI and BSD Crypto Device (aesni, cryptodev)` |
+| Thermal Sensors        | `Intel Core* CPU on-die thermal sensor`           |
+
+![](img/system/advanced/miscellaneous/001.png)
+
+!!! warning
+    Advance 設定が完了したので 一度 pfSense を再起動します。
+
+    `Diagnostics` / `Reboot` から実行できます.
+
+    ![](img/system/advanced/miscellaneous/002.png)
