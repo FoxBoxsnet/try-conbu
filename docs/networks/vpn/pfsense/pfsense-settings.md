@@ -19,6 +19,17 @@ pfSense は、[Download pfSense Community Edition](https://www.pfsense.org/downl
 
 ### コンソールセットアップ
 
+#### インストール
+
+![](img/pfsense-settings/console-setup/install/001.png)
+![](img/pfsense-settings/console-setup/install/002.png)
+![](img/pfsense-settings/console-setup/install/003.png)
+![](img/pfsense-settings/console-setup/install/004.png)
+![](img/pfsense-settings/console-setup/install/005.png)
+![](img/pfsense-settings/console-setup/install/006.png)
+![](img/pfsense-settings/console-setup/install/007.png)
+
+
 #### VLAN 設定
 
 起動したら下記のような画面になります。
