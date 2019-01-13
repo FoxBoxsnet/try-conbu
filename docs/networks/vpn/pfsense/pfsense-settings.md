@@ -536,3 +536,27 @@ filter で shell を指定して `User - System: Shell account access` を追加
 | Disabled | :fa-check-square: This user cannot login |
 
 ![](img/system/user-manager/users/006.png)
+
+
+## Services
+### DNS Resolver
+#### General Settings
+
+IPsec Phase1 の重複排除機能を回避するために、ドメイン名を指定してレコードを `0.0.0.0` にすることで、事実上の回避をする。
+
+サービスから DNS Resolver を選択します。
+![](img/services/dns-resolver/general-settings/001.png)
+
+`add` をおして次の画面へ進む
+![](img/services/dns-resolver/general-settings/002.png)
+
+
+
+| Host     | Parent domain of host | IP to return for host |
+| :------- | :-------------------- | :-------------------- |
+| onsite01 | conbu.net             | 0.0.0.0               |
+
+![](img/services/dns-resolver/general-settings/003.png)
+
+画面遷移後に `Apply Changes` を忘れずに押しましょう。
+![](img/services/dns-resolver/general-settings/004.png)
