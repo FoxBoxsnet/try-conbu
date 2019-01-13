@@ -608,3 +608,29 @@ IPsec Phase1 の重複排除機能を回避するために、ドメイン名を�
 `MGMT` インターフェイスのみ指定
 
 ![](img/services/snmp/004.png)
+
+## Status
+### System Logs
+
+**General Logging Options**
+
+|                             |                                                                                      |
+| :-------------------------- | :----------------------------------------------------------------------------------- |
+| Forward/Reverse Display     | :fa-check-square: Show log entries in reverse order (newest entries on top)          |
+| GUI Log Entries             | 200                                                                                  |
+| Log firewall default blocks | :fa-check-square: Log packets matched from the default pass rules put in the ruleset |
+
+![](img/status/system-logs/001.png)
+
+
+**Remote Logging Options**
+
+|                        |                                                             |
+| :--------------------- | :---------------------------------------------------------- |
+| Enable Remote Logging  | :fa-check-square: Send log messages to remote syslog server |
+| Source Address         | MGMT                                                        |
+| IP Protocol            | IPv4                                                        |
+| Remote log servers     | 192.168.101.66:514                                          |
+| Remote Syslog Contents | :fa-check-square: Everything                                |
+
+![](img/status/system-logs/002.png)
