@@ -201,11 +201,16 @@ username user01 password plain 1 mekabu administrator
 
 ### NTP 設定
 
+timeout は デフォルト 60 秒で長いので調整。
+priority は MFEED, NICT の順で設定
+retry, source, interval は一括設定のコマンドがあるのでそちらを使用。
+
 ```
-ntp interval 3600
+ntp server 210.173.160.87 timeout 10 priority 21
+ntp server 133.243.238.164 timeout 10 priority 11
+ntp source GigaEthernet1.0
 ntp retry 10
-ntp server 210.173.160.87
-ntp server 133.243.238.164
+ntp interval 3600
 
 ```
 
@@ -262,11 +267,12 @@ ntp server 133.243.238.164
 !!! example "Console sample"
 
     ```
-    ix01(config)# ntp interval 3600
+    ix01(config)# ntp server 210.173.160.87 timeout 10 priority 21
+    ix01(config)# ntp server 133.243.238.164 timeout 10 priority 11
+    ix01(config)# ntp source GigaEthernet1.0
     ix01(config)# ntp retry 10
-    ix01(config)# ntp server 210.173.160.87
-    ix01(config)# ntp server 133.243.238.164
-    ix01(config)#
+    ix01(config)# ntp interval 3600
+
     ```
 
 
@@ -296,6 +302,16 @@ ntp retry 10
 
 ```
 ntp server ADDRESS
+
+```
+
+
+#### ntp source
+
+NTP で使用する要求送信元のインタフェースを設定します。
+
+```
+ntp source GigaEthernet0.0
 
 ```
 
