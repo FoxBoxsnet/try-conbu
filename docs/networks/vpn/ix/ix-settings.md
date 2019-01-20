@@ -419,13 +419,15 @@ logging timestamp datetime
 ```
 
 
-### ip ufs-cache enable
+### ip ufs-cache
 
 UFS（Unified Forwarding Service）キャッシュを有効にします。
 
 ```
 ip ufs-cache enable
+ip ufs-cache max-entries 65535
 ipv6 ufs-cache enable
+ipv6 ufs-cache max-entries 65535
 
 ```
 
@@ -433,8 +435,10 @@ ipv6 ufs-cache enable
 
     ```
     ix01(config)# ip ufs-cache enable
+    ix01(config)# ip ufs-cache max-entries 65535
     ix01(config)# ipv6 ufs-cache enable
-    ix01(config)#
+    ix01(config)# ipv6 ufs-cache max-entries 65535
+    ix01(config)# 
 
     ```
 
