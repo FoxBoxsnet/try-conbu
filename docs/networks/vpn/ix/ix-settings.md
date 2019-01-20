@@ -1334,34 +1334,54 @@ network-monitor cloud enable
 ### interface
 
 
+!!! info "MTU について"
+    毎回シヌほど、悩まされている MTU 問題だが、 828ページのマニュアルを熟読した結果。
+
+    `ip mtu` は WAN (会場 UpLink )側に設定すると、 Tunnel インターフェイスの MTU が自動計算され、設定されます。そのため Tunnel インターフェイスなどにむやみに MTU 値を設定する必要はない事がわかりました。
+
+    [実機演習資料(初級編) ～UNIVERGE IX2215～](http://www.express.nec.co.jp/idaten/network/ix/ix2k3k-learning-ver8.10_10.0.pdf)
+
+
 #### WAN
 
-上流とは dhcp でipアドレスを管理するのでそのように設定します
+上流とは dhcp で ip アドレスを管理するのでそのように設定します
+
+```
+interface GigaEthernet0.0
+  description WAN for Uplink
+  ip address dhcp
+  ip mtu 1422
+  ip tcp adjust-mss auto
+  no shutdown
+!
+
+```
+
+!!! warning "ip mtu"
+    MTU は会場,回線の引き回し方法, ISP などによって変わるので参考値です。
+
 
 !!! warning
 
     ```
     no shutdown
+
     ```
 
     を忘れずに実施しましょう。<br>(繋がんなくてオロオロすることになる)
 
-```
-interface GigaEthernet0.0
-  ip address dhcp
-  no shutdown
-
-```
 
 !!! example "Console sample"
 
     ```
     ix01(config)# interface GigaEthernet0.0
-    ix01(config-GigaEthernet0.0)# ip address dhcp
-    ix01(config-GigaEthernet0.0)# no shutdown
-    ix01(config-GigaEthernet0.0)# exit
-    ix01(config)#
-
+    ix01(config)#   description WAN for Uplink
+    ix01(config)#   ip address dhcp
+    ix01(config)#   ip mtu 1422
+    ix01(config)#   ip tcp adjust-mss auto
+    ix01(config)#   no shutdown
+    ix01(config)# exit
+    !
     ```
 
 
@@ -1386,7 +1406,6 @@ CONBU では通例, vlan の降り方が大体あります、今回は下記の�
 interface GigaEthernet1.1
   description MGMT VLAN
   encapsulation dot1q 3000 tpid 8100
-  auto-connect
   ip address 10.11.200.1/24
   ip filter mgmt_acl 10 in
   no shutdown
@@ -1394,12 +1413,39 @@ interface GigaEthernet1.1
 interface GigaEthernet1.2
   description USER VLAN
   encapsulation dot1q 3001 tpid 8100
-  auto-connect
   ip address 10.11.16.1/20
   ip filter user_acl 10 in
   no shutdown
 
 ```
+
+!!! warning "再起動が必要"
+
+    dot1q に設定したり、解除する場合 再起動が必要です。
+
+    ```
+    ix01(config-GigaEthernet0.0)# interface GigaEthernet1.1
+    ix01(config-GigaEthernet1.1)#   description MGMT VLAN
+    ix01(config-GigaEthernet1.1)#   encapsulation dot1q 3000 tpid 8100
+    % You must restart the router for this configuration to take effect.
+    ix01(config-GigaEthernet1.1)#
+
+    ```
+
+!!! warning "auto-connect は VLAN タグでは利用不可"
+
+    `auto-connect` は タグ VLAN では利用できない。
+
+    ```
+    ix01(config)# interface GigaEthernet1.1
+    ix01(config-GigaEthernet1.1)#   description MGMT VLAN
+    ix01(config-GigaEthernet1.1)#   encapsulation dot1q 3000 tpid 8100
+    ix01(config-GigaEthernet1.1)#   auto-connect
+    ix01(config-GigaEthernet1.1)#   ip address 10.11.200.1/24
+    ix01(config-GigaEthernet1.1)#   ip filter mgmt_acl 10 in
+    ix01(config-GigaEthernet1.1)#   no shutdown
+    ix01(config-GigaEthernet1.1)# !
+    ```
 
 !!! example "Console sample"
 
@@ -1407,8 +1453,6 @@ interface GigaEthernet1.2
     ix01(config)# interface GigaEthernet1.1
     ix01(config-GigaEthernet1.1)#   description MGMT VLAN
     ix01(config-GigaEthernet1.1)#   encapsulation dot1q 3000 tpid 8100
-    % You must restart the router for this configuration to take effect.
-    ix01(config-GigaEthernet1.1)#   auto-connect
     ix01(config-GigaEthernet1.1)#   ip address 10.11.200.1/24
     ix01(config-GigaEthernet1.1)#   ip filter mgmt_acl 10 in
     ix01(config-GigaEthernet1.1)#   no shutdown
@@ -1416,35 +1460,34 @@ interface GigaEthernet1.2
     ix01(config-GigaEthernet1.1)# interface GigaEthernet1.2
     ix01(config-GigaEthernet1.2)#   description USER VLAN
     ix01(config-GigaEthernet1.2)#   encapsulation dot1q 3001 tpid 8100
-    % You must restart the router for this configuration to take effect.
-    ix01(config-GigaEthernet1.2)#   auto-connect
     ix01(config-GigaEthernet1.2)#   ip address 10.11.16.1/20
     ix01(config-GigaEthernet1.2)#   ip filter user_acl 10 in
     ix01(config-GigaEthernet1.2)#   no shutdown
     ix01(config-GigaEthernet1.2)#
+    ix01(config-GigaEthernet1.2)#
     ix01(config-GigaEthernet1.2)# exit
     ix01(config)#
-    ```
 
+    ```
 
 #### Tunnel
 
 ipsec トンネルインターフェイスを作成します。
 
-* `ip mtu 1280` は参考値であり、変更が必要です。
-* `ip tcp adjust-mss auto` を利用することで MSS を MTU から自動計算することができます。
-
 ```
 interface Tunnel0.0
-  description To CLoud
+  description To Cloud
   tunnel mode ipsec
   ip unnumbered GigaEthernet1.1
-  ip mtu 1280
   ip tcp adjust-mss auto
   ipsec policy tunnel ipsec-mgmt out
   no shutdown
 
 ```
+
+!!! warning "Tunnel に MTU 指定はしない"
+    Tunnel に MTU を指定したくなりますが、IX では自動で計算する機能があるようです。
+
 
 !!! example "Console sample"
 
@@ -1453,7 +1496,6 @@ interface Tunnel0.0
     ix01(config-Tunnel0.0)#   description To CLoud
     ix01(config-Tunnel0.0)#   tunnel mode ipsec
     ix01(config-Tunnel0.0)#   ip unnumbered GigaEthernet1.1
-    ix01(config-Tunnel0.0)#   ip mtu 1280
     ix01(config-Tunnel0.0)#   ip tcp adjust-mss auto
     ix01(config-Tunnel0.0)#   ipsec policy tunnel ipsec-mgmt out
     ix01(config-Tunnel0.0)#   no shutdown
@@ -1466,3 +1508,155 @@ interface Tunnel0.0
 
 !!! info
     TBD
+
+```
+!
+interface GigaEthernet0.0
+  description WAN for Uplink
+  ip address dhcp
+  ip mtu 1422
+  ip tcp adjust-mss auto
+  auto-connect
+!  ip unnumbered
+!  ipv6 address
+!  ipv6 enable
+!  ipv6 mtu
+!  ipv6 tcp adjust-mss
+!  ipv6 unnumbered
+  no shutdown
+!
+interface GigaEthernet1.0
+  no ip address
+  shutdown
+!
+interface Loopback0.0
+  no ip address
+!
+interface Null0.0
+  no ip address
+!
+
+```
+
+
+### IPsec 確認
+
+
+#### ISAKMP SA
+
+Stateが `established` されていることを確認。
+
+
+```
+ix01(config)# show ike sa
+ISAKMP SA - 1 configured, 1 created
+Local address is 192.168.3.106, port is 4500
+Remote address is 160.16.67.124, port is 4500
+  IKE policy name is ike-policy
+  Direction is responder
+  Initiator's cookie is 0x3a5604810cce127e
+  Responder's cookie is 0xb43e20ddc47f8284
+  Exchange type is aggressive mode
+  NAT-Traversal RFC3947
+  NAT detected at local side
+  State is established
+  Authentication method is pre-shared
+  Encryption algorithm is aes-256
+  Hash algorithm is sha2-512
+  DH group is modp2048, lifetime is 2889 seconds
+  #ph1 success: 1, #ph1 failure: 0
+  #ph1 hash err: 0, #ph1 timeout: 0, #ph1 resend: 0
+  #ph2 success: 9, #ph2 failure: 0
+  #ph2 hash err: 0, #ph2 timeout: 0, #ph2 resend: 0
+
+```
+
+**簡易表示**
+
+複数の SA を確認するには便利
+
+```
+ix01(config)# show ike sa brief
+ISAKMP SA - 1 configured, 1 created
+Policy                         Initiator          Responder          Life(secs)
+ike-policy                     0x3a5604810cce127e 0xb43e20ddc47f8284   2456
+
+```
+
+#### IPsec SA
+
+```
+ix01(config)# show ipsec sa
+IPsec SA - 1 configured, 3 created
+Interface is Tunnel0.0
+  Key policy map name is ipsec-mgmt
+    UDP encapsulation Tunnel mode, 4-over-4, autokey-map
+    Local address is 192.168.3.106, port is 4500
+    Remote address is 192.168.2.1, port is 4500
+    Outgoing interface is GigaEthernet0.0
+    Interface MTU is 1326, path MTU is 1422
+    Inbound:
+      ESP, SPI is 0x47a00ca9(1201671337)
+        Transform is ESP-AES-256-HMAC-SHA2-512-256
+        Remaining lifetime is 3341 seconds
+      ESP, SPI is 0x69f78d18(1777831192)
+        Transform is ESP-AES-256-HMAC-SHA2-512-256
+        Remaining lifetime is 411 seconds
+      Replay detection support is on
+    Outbound:
+      ESP, SPI is 0xcfc1133b(3485537083)
+        Transform is ESP-AES-256-HMAC-SHA2-512-256
+        Remaining lifetime is 3341 seconds
+      Replay detection support is on
+    Perfect forward secrecy is 2048-bit
+
+```
+
+**簡易表示**
+
+複数の SA を確認するには便利
+
+```
+ix01(config)# show ipsec sa brief
+IPsec SA - 1 configured, 3 created
+Policy map                       Dir   Type   SPI          Life(secs/bytes)
+ipsec-mgmt                       IN    ESP    0x47a00ca9     3145/-
+ipsec-mgmt                       IN    ESP    0x69f78d18      215/-
+ipsec-mgmt                       OUT   ESP    0xcfc1133b     3145/-
+
+```
+
+### デフォルトルート確認
+
+```
+ix01(config)# show ip route
+IP Routing Table - 4 entries, 2 hidden, 2042 frees
+Entries: 2 Connected, 2 Static, 0 RIP, 0 OSPF, 0 BGP
+Codes: C - Connected, S - Static, R - RIP, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, B - BGP
+       * - Candidate default, s - Summary
+Timers: Age
+S*   0.0.0.0/0 [1/1] is directly connected, Tunnel0.0, 15:21:33
+     10.0.0.0/8 is subnetted, 1 subnets
+C      10.2.11.0/24 [0/1] is directly connected, GigaEthernet1.0, 14:18:24
+     192.0.2.0/24 is subnetted, 1 subnets
+S      192.0.2.1/32 [1/1] via 192.168.3.254, GigaEthernet0.0, 15:21:35
+C    192.168.3.0/24 [0/1] is directly connected, GigaEthernet0.0, 15:21:35
+
+```
+
+IPsec/ISAKMP SAが正常に確立しない場合、その理由を確認することができます。
+フィルタでパケットが廃棄されている場合、フィルタ(FLT)のログにBLOCKと出力されます。
+
+```
+2015/09/07 14:52:21 SEC.014: 2015/09/07 14:52:21 SEC.018: 2015/09/07 14:52:22 SEC.014: 2015/09/07 14:52:22 SEC.018: 2015/09/07 14:52:28 FLT.008:
+2015/09/07 14:52:38 FLT.008: 2015/09/07 14:52:48 FLT.008: 2015/09/07 14:52:58 IKE.016:
+SA not found, drop packet, 192.168.1.254 > 192.168.0.254 No SP for outbound packet, drop packet
+SA not found, drop packet, 192.168.1.254 > 192.168.0.254 No SP for outbound packet, drop packet
+BLOCK udp 10.10.10.100:500 > 10.10.10.1:500, not match any filters, GigaEthernet0.1 in
+BLOCK udp 10.10.10.100:500 > 10.10.10.1:500, not match any filters, GigaEthernet0.1 in
+BLOCK udp 10.10.10.100:500 > 10.10.10.1:500, not match any filters, GigaEthernet0.1 in
+No response from 10.10.10.100, timeout
+
+```
