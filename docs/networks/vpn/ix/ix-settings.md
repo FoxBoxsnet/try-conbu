@@ -464,12 +464,23 @@ ip route 192.0.2.1/32 GigaEthernet0.0 dhcp
     ```
 
 
-### ip dhcp-relay enable
+### ip dhcp-relay
 
 リレーが必要な場合に enable にします。
 
+|                        |      |
+| :--------------------- | :--- |
+| 最大リレー回数         | 1    |
+| 最低リレー経過時間設定 | 5 秒 |
+
+* `maximum-hop` : リレー回数を 1 にすることで IX 以外でリレーされた物を再リレーされないようにしてみる。
+* `minimum-retry-time` :リレーで帯域を圧迫したことがあるため、少し delay の設定を追加。
+
+
 ```
 ip dhcp-relay enable
+ip dhcp-relay maximum-hop 1
+ip dhcp-relay minimum-retry-time 5
 
 ```
 
@@ -477,6 +488,8 @@ ip dhcp-relay enable
 
     ```
     ix01(config)# ip dhcp-relay enable
+    ix01(config)# ip dhcp-relay maximum-hop 1
+    ix01(config)# ip dhcp-relay minimum-retry-time 5
     ix01(config)#
 
     ```
