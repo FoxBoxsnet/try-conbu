@@ -68,6 +68,18 @@ timezone +09 00
 
     ```
 
+### terminal 
+#### terminal suppress-emanon
+
+ログイン認証抑止の設定
+
+コンソールや TELNET ログイン時のユーザアカウント要求でリターン入力のみを行った場合に、認証動作を抑止します。
+
+```
+terminal suppress-emanon
+
+```
+
 
 ### syslog 設定
 
