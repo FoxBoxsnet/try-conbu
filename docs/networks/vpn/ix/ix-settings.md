@@ -494,6 +494,43 @@ ip dhcp-relay minimum-retry-time 5
 
     ```
 
+#### interface 設定
+
+|                           |             |
+| :------------------------ | :---------- |
+| Cloud 側 DHCP             | 10.1.11.254 |
+| 会場 管理インターフェイス | 10.2.11.254 |
+
+```
+interface GigaEthernet1.1
+ip dhcp-relay server 10.1.11.254
+  no shutdown
+!
+
+```
+
+!!! info "ソースアドレスについて"
+
+    下記のように記述して、 source アドレスを指定すること可能ですが、
+
+    ```
+    interface GigaEthernet1.1
+      ...(sinp)...
+      ip dhcp-relay server 10.1.11.254 source 10.2.11.254
+      no shutdown
+    !
+
+    ```
+
+    コマンドリファレンスには
+
+    ```
+    ソースアドレスを省略した場合、送信インタフェースのアドレスを使用します。
+    ```
+
+    と記載があったので、誤爆防止のため source 指定しないほうが無難かなーと思います。
+
+
 ### ip access-list
 
 CONBU では、下記のようにネットワークを構成することが多いので参考までに記述します。
