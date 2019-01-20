@@ -957,6 +957,7 @@ snmp-agent ip community try-conbu mgmt_acl
 snmp-agent ip host 192.168.101.66 try-conbu version 2 
 snmp-agent ip host 192.168.101.67 try-conbu version 2 
 snmp-agent ip trap-source GigaEthernet1.1
+snmp-agent ip trap-port 162
 snmp-agent location home
 
 ```
@@ -970,6 +971,7 @@ snmp-agent location home
     ix01(config)# snmp-agent ip host 192.168.101.66 try-conbu version 2
     ix01(config)# snmp-agent ip host 192.168.101.67 try-conbu version 2
     ix01(config)# snmp-agent ip trap-source GigaEthernet1.1
+    ix01(config)# snmp-agent ip trap-port 162
     ix01(config)# snmp-agent location home
     ix01(config)#
 
